@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:my_first_app/app/app.bottomsheets.dart';
 import 'package:my_first_app/app/app.dialogs.dart';
 import 'package:my_first_app/app/app.locator.dart';
 import 'package:my_first_app/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+void registerThirdParties() {
+  locator.registerLazySingleton(() => const FlutterSecureStorage());
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
+  registerThirdParties();
   setupDialogUi();
   setupBottomSheetUi();
   runApp(const MainApp());

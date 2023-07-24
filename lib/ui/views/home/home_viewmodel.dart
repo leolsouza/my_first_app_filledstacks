@@ -1,6 +1,8 @@
 import 'package:my_first_app/app/app.bottomsheets.dart';
 import 'package:my_first_app/app/app.dialogs.dart';
 import 'package:my_first_app/app/app.locator.dart';
+import 'package:my_first_app/app/app.router.dart';
+import 'package:my_first_app/services/authentication_service.dart';
 import 'package:my_first_app/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -8,6 +10,8 @@ import 'package:stacked_services/stacked_services.dart';
 class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final _authService = locator<AuthenticationService>();
+  final _navigationService = locator<NavigationService>();
 
   String get counterLabel => 'Counter is: $_counter';
 
@@ -32,5 +36,10 @@ class HomeViewModel extends BaseViewModel {
       title: ksHomeBottomSheetTitle,
       description: ksHomeBottomSheetDescription,
     );
+  }
+
+  void logout() {
+    _authService.logout();
+    _navigationService.replaceWithLoginView();
   }
 }
